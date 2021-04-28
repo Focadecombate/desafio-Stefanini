@@ -1,36 +1,37 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
     "module": "CommonJS",
-    "target": "ES2020",
+    "target": "es6",
+    "outDir": "./dist",
     "declaration": true,
     "esModuleInterop": true,
     "sourceMap": true,
     "baseUrl": "./",
     "allowJs": true,
-    "resolveJsonModule": true,
     "typeRoots": [
       "./src/@types",
       "./node_modules/@types"
     ],
-    "incremental": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "isolatedModules": false,
+    "resolveJsonModule": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "paths": {
       "@modules/*": [
         "src/modules/*"
-      ],
-      "@shared/*": [
-        "src/shared/*"
       ]
     }
   },
   "include": [
-    "src",
-    "test"
+    "src"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    ".husky",
-    "db"
+    ".husky"
   ]
 }

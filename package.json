@@ -13,6 +13,7 @@
     "test:staged": "npm test -- --findRelatedTests --runInBand",
     "test:ci": "npm test -- --coverage --runInBand",
     "migrate": "npx prisma migrate dev --name",
+    "syncDb": "npx prisma db push --preview-feature",
     "prepare": "husky install",
     "commit": "git-cz"
   },
@@ -44,6 +45,9 @@
     "nodemon": "^2.0.7",
     "prettier": "2.2.1",
     "prisma": "^2.19.0",
+    "serverless": "^2.38.0",
+    "serverless-offline": "^6.9.0",
+    "serverless-typescript": "^0.0.5",
     "supertest": "^6.1.3",
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.17",
@@ -67,6 +71,7 @@
     "express": "^4.17.1",
     "fast-glob": "^3.2.5",
     "jsonwebtoken": "^8.5.1",
+    "serverless-http": "^2.7.0",
     "validator": "^13.5.2"
   },
   "config": {
