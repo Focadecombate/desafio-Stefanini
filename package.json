@@ -2,9 +2,10 @@
   "name": "stefanini",
   "version": "1.0.0",
   "description": "Desafio Stefanini",
-  "main": "index.ts",
+  "main": "src/main/handler.ts",
   "scripts": {
-    "start": "ts-node src/main/server.ts",
+    "start": "tsc --build && serverless offline start",
+    "start:noBuild": "serverless offline start",
     "studio": "npx prisma studio",
     "test": "jest --passWithNoTests --runInBand --noStackTrace",
     "test:verbose": "jest --passWithNoTests",
@@ -13,6 +14,7 @@
     "test:staged": "npm test -- --findRelatedTests --runInBand",
     "test:ci": "npm test -- --coverage --runInBand",
     "migrate": "npx prisma migrate dev --name",
+    "generate": "npx prisma generate",
     "syncDb": "npx prisma db push --preview-feature",
     "prepare": "husky install",
     "commit": "git-cz"

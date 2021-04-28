@@ -1,13 +1,35 @@
-version: "3.1"
+version: '3.4'
 
 services:
   db:
     image: postgres
-    restart: always
     environment:
       POSTGRES_PASSWORD: randompassword
       POSTGRES_USER: johndoe
-      POSTGRES_User: johndoe
       POSTGRES_DB: mydb
     ports:
       - 5432:5432
+    networks:
+      - stefanini-network
+  api:
+    build:
+      context: .
+      target: dev
+      args:
+        command: start:noBuild
+    container_name: serverless-function
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules
+    depends_on:
+      - db
+    networks:
+      - stefanini-network
+    links:
+      - db
+
+networks:
+  stefanini-network:
+    driver: bridge
