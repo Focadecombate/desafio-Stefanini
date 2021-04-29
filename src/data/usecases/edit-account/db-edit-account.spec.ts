@@ -10,7 +10,6 @@ const makeEditedAccount = (): AccountModel => ({
   isActive: true,
   id: 'any_id',
   age: 20,
-  role: 'user',
 });
 
 const makeEditAccountRepositoryStub = (): EditAccountRepository => {

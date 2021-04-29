@@ -8,7 +8,6 @@ const makeFakeAccount = (): AccountModel => ({
   name: 'any_name',
   email: 'any_email',
   isActive: true,
-  role: 'user',
   password: 'hashed_password',
   age: 20,
 });
@@ -23,7 +22,7 @@ const makeDecrypterStub = (): Decrypter => {
 const makeLoadAccountByTokenRepositoryStub = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub
     implements LoadAccountByTokenRepository {
-    async loadByToken(token: string, role?: string): Promise<AccountModel> {
+    async loadByToken(token: string): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()));
     }
   }
@@ -45,7 +44,7 @@ describe('DbLoadAccountByToken UseCase', () => {
   test('should call Decrypter with correct values', async () => {
     const { sut, decrypterStub } = makeSut();
     const decryptSpy = jest.spyOn(decrypterStub, 'decrypt');
-    await sut.load('any_token', 'any_role');
+    await sut.load('any_token');
     expect(decryptSpy).toHaveBeenCalledWith('any_token');
   });
   test('should return null if Decrypter returns null', async () => {
@@ -53,7 +52,7 @@ describe('DbLoadAccountByToken UseCase', () => {
     jest
       .spyOn(decrypterStub, 'decrypt')
       .mockReturnValueOnce(new Promise((resolve) => resolve(null)));
-    const account = await sut.load('any_token', 'any_role');
+    const account = await sut.load('any_token');
     expect(account).toBeNull();
   });
   test('should call LoadAccountByToken with correct values', async () => {
@@ -62,20 +61,20 @@ describe('DbLoadAccountByToken UseCase', () => {
       loadAccountByTokenRepositoryStub,
       'loadByToken',
     );
-    await sut.load('any_token', 'any_role');
-    expect(loadByTokenSpy).toHaveBeenCalledWith('any_token', 'any_role');
+    await sut.load('any_token');
+    expect(loadByTokenSpy).toHaveBeenCalledWith('any_token');
   });
   test('should return null if LoadAccountByToken returns null', async () => {
     const { sut, loadAccountByTokenRepositoryStub } = makeSut();
     jest
       .spyOn(loadAccountByTokenRepositoryStub, 'loadByToken')
       .mockReturnValueOnce(new Promise((resolve) => resolve(null)));
-    const account = await sut.load('any_token', 'any_role');
+    const account = await sut.load('any_token');
     expect(account).toBeNull();
   });
   test('should return an account on success', async () => {
     const { sut } = makeSut();
-    const account = await sut.load('any_token', 'any_role');
+    const account = await sut.load('any_token');
     expect(account).toEqual(makeFakeAccount());
   });
   test('should throw if Decrypter throws', async () => {
@@ -85,7 +84,7 @@ describe('DbLoadAccountByToken UseCase', () => {
       .mockReturnValueOnce(
         new Promise((resolve, reject) => reject(new Error())),
       );
-    const promise = sut.load('any_token', 'any_role');
+    const promise = sut.load('any_token');
     expect(promise).rejects.toThrowError();
   });
   test('should throw if LoadAccountByToken throws', async () => {
@@ -95,7 +94,7 @@ describe('DbLoadAccountByToken UseCase', () => {
       .mockReturnValueOnce(
         new Promise((resolve, reject) => reject(new Error())),
       );
-    const promise = sut.load('any_token', 'any_role');
+    const promise = sut.load('any_token');
     expect(promise).rejects.toThrowError();
   });
 });

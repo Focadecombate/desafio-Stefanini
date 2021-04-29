@@ -40,7 +40,6 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'valid_password',
   id: 'valid_id',
   isActive: true,
-  role: 'user',
   age: 20,
 });
 const makeValidationStub = (): Validation => {

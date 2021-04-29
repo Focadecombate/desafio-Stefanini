@@ -24,7 +24,6 @@ const makeAddAccountRepository = (): AddAccountRepository => {
         password: '#hash',
         id: 'valid_id',
         isActive: true,
-        role: 'user',
         age: 20,
       };
       return new Promise((resolve) => resolve(fakeAccount));
@@ -37,7 +36,6 @@ const makeFakeAccount = (): AccountModel => ({
   name: 'any_name',
   email: 'any_email@mail.com',
   isActive: true,
-  role: 'user',
   password: 'hashed_password',
   age: 20,
 });
@@ -161,7 +159,6 @@ describe('DbAddAccount Usecase', () => {
       email: 'valid_email',
       password: '#hash',
       isActive: true,
-      role: 'user',
       age: 20,
     };
 

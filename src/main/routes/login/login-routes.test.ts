@@ -26,38 +26,8 @@ describe('Login Routes', () => {
         })
         .expect(200);
     });
-    test('should create a admin if admin role is passed', async () => {
-      await request(app).post('/api/signup').send({
-        name: 'valid_name',
-        email: 'valid_email@email.com',
-        password: 'valid_password',
-        passwordConfirmation: 'valid_password',
-        role: 'admin',
-        age: 20,
-      });
-      const user = await prismaHelper.prismaClient.user.findFirst({
-        where: {
-          email: 'valid_email@email.com',
-        },
-      });
-      expect(user.role).toBe('admin');
-    });
-    test('should create a user if admin role is not passed', async () => {
-      await request(app).post('/api/signup').send({
-        name: 'valid_name',
-        email: 'valid_email@email.com',
-        password: 'valid_password',
-        passwordConfirmation: 'valid_password',
-        age: 20,
-      });
-      const user = await prismaHelper.prismaClient.user.findFirst({
-        where: {
-          email: 'valid_email@email.com',
-        },
-      });
-      expect(user.role).toBe('user');
-    });
   });
+
   describe('POST /login', () => {
     test('should return 200 on login if is ok', async () => {
       const password = await hash('123', 12);

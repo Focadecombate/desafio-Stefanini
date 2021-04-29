@@ -15,7 +15,7 @@
     "test:ci": "npm test -- --coverage --runInBand",
     "migrate": "npx prisma migrate dev --name",
     "generate": "npx prisma generate",
-    "syncDb": "npx prisma db push --preview-feature",
+    "sync": "npx prisma db push --preview-feature",
     "prepare": "husky install",
     "commit": "git-cz"
   },

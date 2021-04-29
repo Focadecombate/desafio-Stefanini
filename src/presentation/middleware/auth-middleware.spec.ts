@@ -13,7 +13,6 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'valid_password',
   id: 'valid_id',
   isActive: true,
-  role: 'user',
   age: 20,
 });
 const makeFakeRequest = (): HttpRequest => ({
@@ -23,16 +22,16 @@ const makeFakeRequest = (): HttpRequest => ({
 });
 const makeLoadAccountByTokenStub = () => {
   class LoadAccountByTokenSub implements LoadAccountByToken {
-    async load(accessToken: string, role?: string): Promise<AccountModel> {
+    async load(accessToken: string): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()));
     }
   }
   return new LoadAccountByTokenSub();
 };
-const makeSut = (role?: string) => {
+const makeSut = () => {
   const loadAccountByTokenStub = makeLoadAccountByTokenStub();
   return {
-    sut: new AuthMiddleware(loadAccountByTokenStub, role),
+    sut: new AuthMiddleware(loadAccountByTokenStub),
     loadAccountByTokenStub,
   };
 };
@@ -44,11 +43,10 @@ describe('Auth Middleware', () => {
     expect(httpResponse).toEqual(forbidden(new AccessDenied()));
   });
   test('should call LoadAccountByToken with correct accessToken', async () => {
-    const role = 'any_role';
-    const { sut, loadAccountByTokenStub } = makeSut(role);
+    const { sut, loadAccountByTokenStub } = makeSut();
     const loadSpy = jest.spyOn(loadAccountByTokenStub, 'load');
     await sut.handle(makeFakeRequest());
-    expect(loadSpy).toHaveBeenCalledWith('any_token', role);
+    expect(loadSpy).toHaveBeenCalledWith('any_token');
   });
   test('should return 403 if LoadAccountByToken returns null', async () => {
     const { sut, loadAccountByTokenStub } = makeSut();

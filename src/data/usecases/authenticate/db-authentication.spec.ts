@@ -12,7 +12,6 @@ const makeFakeAccount = (): AccountModel => ({
   name: 'any_name',
   email: 'any_email',
   isActive: true,
-  role: 'user',
   password: 'hashed_password',
   age: 20,
 });

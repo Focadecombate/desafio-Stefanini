@@ -16,13 +16,12 @@ export class AccountPrismaRepository
     DisableAccountRepository,
     EditAccountRepository {
   async add(account: AddAccountModel): Promise<AccountModel> {
-    const { email, name, password, role, age } = account;
+    const { email, name, password, age } = account;
     const addedAccount = await prisma.user.create({
       data: {
         email,
         name,
         password,
-        role,
         age,
       },
     });
@@ -38,11 +37,10 @@ export class AccountPrismaRepository
     return account;
   }
 
-  async loadByToken(token: string, role?: string): Promise<AccountModel> {
+  async loadByToken(token: string): Promise<AccountModel> {
     const account = await prisma.user.findFirst({
       where: {
         id: token,
-        role,
       },
     });
     return account;

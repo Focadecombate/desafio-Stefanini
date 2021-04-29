@@ -29,19 +29,12 @@ export class SignupController implements Controller<{ accessToken: string }> {
         return badRequest(error);
       }
 
-      const {
-        email,
-        name,
-        password,
-        role,
-        age,
-      } = httpRequest.body as SignupDTO;
+      const { email, name, password, age } = httpRequest.body as SignupDTO;
 
       const account = await this.addAccount.add({
         email,
         name,
         password,
-        role,
         age,
       });
 
