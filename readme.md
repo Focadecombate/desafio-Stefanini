@@ -12,6 +12,32 @@ npm run sync
 npm run start
 ~~~
 
+## Run Tests
+
+To run all tests
+
+~~~bash
+npm run test
+~~~
+
+To run only integration
+
+~~~bash
+npm run test:integration
+~~~
+
+To run only unit
+
+~~~bash
+npm run test:unit
+~~~
+
+To run coverage
+
+~~~bash
+npm run test:ci
+~~~
+
 ## Live EndPoint
 
 [Link](https://wfzas05qud.execute-api.us-east-1.amazonaws.com/dev)
@@ -21,7 +47,9 @@ npm run start
 ### Signup
 
 Método: post
+
 Endpoint: /api/signup
+
 Auth: false
 
 Request Body:
@@ -47,7 +75,9 @@ interface SignUpResponse {
 ### Login
 
 Método: post
+
 Endpoint: /api/login
+
 Auth: false
 
 Request Body:
@@ -70,7 +100,9 @@ interface LoginResponseBody{
 ### Edit
 
 Método: put
+
 Endpoint: /api/account
+
 Auth: true
 
 header authorization = accessToken
@@ -88,7 +120,9 @@ interface EditAccountResponseBody {
 ### Delete
 
 Método: delete
+
 Endpoint: /api/account
+
 Auth: true
 
 header authorization = accessToken
